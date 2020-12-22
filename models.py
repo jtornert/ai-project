@@ -1,6 +1,7 @@
 import tensorflow as tf
 
 checkpoint_path_dual = 'training_dual/cp.ckpt'
+checkpoint_path_digits = 'training_digits/cp.ckpt'
 checkpoint_path_letters = 'training_letters/cp.ckpt'
 
 model_type = 'None'
@@ -8,7 +9,7 @@ model_type = 'None'
 
 def dual(load=False):
     """
-    The simplest available network that solves the problem.
+    A single network that deals with both digits and letters.
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
@@ -31,6 +32,9 @@ def dual(load=False):
 
 
 def digits(load=False):
+    """
+    Neural network model for learning the set of digits in the EMNIST dataset.
+    """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
     model.add(tf.keras.layers.Dense(units=128, activation=tf.nn.relu))
@@ -40,6 +44,12 @@ def digits(load=False):
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
+
+    global model_type
+    model_type = 'digits'
+
+    if load == True:
+        model.load_weights(checkpoint_path_digits)
 
     return model
 
@@ -71,6 +81,8 @@ def train(model, samples, labels, epochs=1, save=False):
     global checkpoint_path
     if model_type == 'dual':
         checkpoint_path = checkpoint_path_dual
+    elif model_type == 'digits':
+        checkpoint_path = checkpoint_path_digits
     elif model_type == 'letters':
         checkpoint_path = checkpoint_path_letters
     else:
