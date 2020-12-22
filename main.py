@@ -12,9 +12,8 @@ import models
 train_images = tf.keras.utils.normalize(train_images, axis=1)
 test_images = tf.keras.utils.normalize(test_images, axis=1)
 
-model = models.simplest()
-models.load_model(model, 'simplest')
-models.train_simplest(model, train_images, train_labels, 5, save=True)
+model = models.simplest(load=True)
+models.train(model, train_images, train_labels, epochs=5, save=True)
 
 test = model.predict(test_images)
 

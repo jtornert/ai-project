@@ -2,19 +2,10 @@ import tensorflow as tf
 
 checkpoint_path_simplest = 'training_simplest/cp.ckpt'
 
-
-def load_model(model, type):
-    """
-    Loads the weights from the checkpoint for the specified type of network.
-    """
-    print(f'Loading weights from model type: {type}')
-    if type == 'simplest':
-        model.load_weights(checkpoint_path_simplest)
-    else:
-        raise ValueError('Unknown type specified in modules.load_model!')
+model_type = 'None'
 
 
-def simplest():
+def simplest(load=False):
     """
     The simplest available network that solves the problem.
     """
@@ -26,13 +17,22 @@ def simplest():
 
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+    global model_type
+    model_type = 'simplest'
+
+    if load == True:
+        model.load_weights(checkpoint_path_simplest)
+
     return model
 
 
-def train_simplest(model, samples, labels, epochs, save=False):
-    if save == True:
-        cp_callback = tf.keras.callbacks.ModelCheckpoint(
-            filepath=checkpoint_path_simplest, save_weights_only=True, verbose=1)
-        model.fit(samples, labels, epochs=epochs, callbacks=[cp_callback])
+def train(model, samples, labels, epochs=1, save=False):
+    global checkpoint_path
+    if model_type == 'simplest':
+        checkpoint_path = checkpoint_path_simplest
     else:
-        model.fit(samples, labels, epochs=epochs)
+        raise ValueError('Unknown type.')
+    model.fit(samples, labels, epochs=epochs, callbacks=(
+        None if save == False else [tf.keras.callbacks.ModelCheckpoint(
+            filepath=checkpoint_path_simplest, save_weights_only=True, verbose=1)]))
