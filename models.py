@@ -13,9 +13,7 @@ def dual(load=False):
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
-    model.add(tf.keras.layers.Dense(units=128, activation=tf.nn.relu))
-    model.add(tf.keras.layers.Dense(units=128, activation=tf.nn.relu))
-    model.add(tf.keras.layers.Dense(units=128, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
     model.add(tf.keras.layers.Dense(units=36, activation=tf.nn.softmax))
 
     model.compile(optimizer='adam',

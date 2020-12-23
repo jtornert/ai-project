@@ -2,7 +2,10 @@ def label(number):
     """
     Converts an int to the correct label.
     """
-    return number if number < 10 else chr(number)
+    if number < 10:
+        return number
+
+    return chr(number + 87)
 
 
 def printPrediction(correct, prediction):
