@@ -31,11 +31,7 @@ test_images_letters = tf.keras.utils.normalize(test_images_letters, axis=1)
 
 model = models.dual(load=True)
 
-# models.train(model,
-#              np.concatenate((train_images_digits, train_images_letters)),
-#              np.concatenate((train_labels_digits, train_labels_letters)),
-#              epochs=3,
-#              save=True)
+# testing
 
 print('Digits:')
 
