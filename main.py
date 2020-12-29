@@ -29,7 +29,15 @@ train_images_letters = tf.keras.utils.normalize(train_images_letters, axis=1)
 test_images_digits = tf.keras.utils.normalize(test_images_digits, axis=1)
 test_images_letters = tf.keras.utils.normalize(test_images_letters, axis=1)
 
+# create neural network model
 model = models.dual(load=True)
+
+# train model
+# models.train(model,
+#              np.concatenate((train_images_digits, train_images_letters)),
+#              np.concatenate((train_labels_digits, train_labels_letters)),
+#              epochs=5,
+#              save=True)
 
 # testing
 
@@ -61,7 +69,7 @@ for filepath in glob.iglob(r'./img/*.png'):
     img = cv.imread(filepath)[:, :, 0]
     img = np.invert([img])
     prediction = model.predict(img)
-    printPrediction(ord(filepath[6:7]), np.argmax(prediction))
+    printPrediction(ord(filepath[6:7]) - ord('0'), np.argmax(prediction))
     plt.imshow(img[0], cmap='gray_r')
     plt.show()
 
