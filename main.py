@@ -36,7 +36,7 @@ model = models.dual(load=True)
 models.train(model,
              np.concatenate((train_images_digits, train_images_letters)),
              np.concatenate((train_labels_digits, train_labels_letters)),
-             epochs=1,
+             epochs=20,
              save=True)
 
 # testing
@@ -73,35 +73,36 @@ models.train(model,
 #     plt.imshow(img[0], cmap='gray_r')
 #     plt.show()
 
-print('\nNIST images:')
+# print('\nNIST images:')
 
-NIST_labels = [['0', 'O', 'o'],
-               ['1', '7', 'I', 'i', 'l'],
-               ['6', '8', 'S', 's']]
+# NIST_labels = [['0', 'O', 'o'],
+#                ['1', '7', 'I', 'i', 'l'],
+#                ['6', '8', 'S', 's']]
 
-i = 0
-for filepath in glob.iglob(r'./nist/*'):
-    print(filepath)
-    folders = glob.glob(filepath + r'/*')
-    symbols = [x for x in range(len(folders))]
-    random.shuffle(symbols)
-    for symbol in symbols:
-        print(folders[symbol])
-        testfolders = glob.glob(folders[symbol] + r'/*')
-        print(testfolders)
-        testfolder = testfolders[random.randint(0, len(testfolders) - 1)]
-        images = glob.glob(testfolder + r'/*')
-        file = images[random.randint(0, len(images) - 1)]
-        img = cv.imread(file)[:, :, 0]
-        img = img[20:108, 20:108]
-        img = cv.resize(img, (28, 28), interpolation=cv.INTER_LANCZOS4)
-        img = np.invert([img])
-        prediction = model.predict(img)
-        printPrediction(invlabel(NIST_labels[i][symbol]),
-                        np.argmax(prediction))
-        plt.imshow(img[0], cmap='gray_r')
-        plt.show()
-    i = i + 1
+# i = 0
+# for filepath in glob.iglob(r'./nist/*'):
+#     print(filepath)
+#     folders = glob.glob(filepath + r'/*')
+#     symbols = [x for x in range(len(folders))]
+#     random.shuffle(symbols)
+#     for symbol in symbols:
+#         print(folders[symbol])
+#         testfolders = glob.glob(folders[symbol] + r'/*')
+#         print(testfolders)
+#         testfolder = testfolders[random.randint(0, len(testfolders) - 1)]
+#         images = glob.glob(testfolder + r'/*')
+#         file = images[random.randint(0, len(images) - 1)]
+#         img = cv.imread(file)[:, :, 0]
+#         img = img[20:108, 20:108]
+#         img = cv.resize(img, (28, 28), interpolation=cv.INTER_LANCZOS4)
+#         img = np.invert([img])
+#         prediction = model.predict(img)
+#         printPrediction(invlabel(NIST_labels[i][symbol]),
+#                         np.argmax(prediction))
+#         plt.imshow(img[0], cmap='gray_r')
+#         plt.show()
+#     i = i + 1
+
 # NIST images:
 # ./nist\0Oo
 # ./nist\0Oo\30
