@@ -9,9 +9,14 @@ import cv2 as cv
 test_images, test_labels = emnist.extract_test_samples('byclass')
 
 
-def rand(model):
-    print('\nRandom test, enter a value between 1 and 20:', end=" ")
-    iterations = int(input())
+def rand(model, iter=None):
+    iterations = 0
+    if iter == None:
+        print('\nRandom test, enter a value between 1 and 20:', end=" ")
+        iterations = int(input())
+    else:
+        print('\nRandom test:')
+        iterations = iter
     if iterations < 1:
         iterations = 1
     elif iterations > 20:

@@ -1,15 +1,15 @@
 import tensorflow as tf
 
-checkpoint_path_dual = 'training_dual/cp.ckpt'
+checkpoint_path_mean = 'training_mean/cp.ckpt'
 checkpoint_path_deep = 'training_deep/cp.ckpt'
 checkpoint_path_max = 'training_max/cp.ckpt'
 
 model_type = 'None'
 
 
-def dual(load=False):
+def mean(load=False):
     """
-    A single network that deals with both digits and letters.
+    A network with a hidden layer that consists of a number of nodes that is the mean value of the number of inputs and outputs.
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
@@ -21,10 +21,10 @@ def dual(load=False):
                   metrics=['accuracy'])
 
     global model_type
-    model_type = 'dual'
+    model_type = 'mean'
 
     if load == True:
-        model.load_weights(checkpoint_path_dual)
+        model.load_weights(checkpoint_path_mean)
 
     return model
 
@@ -77,8 +77,8 @@ def deep(load=False):
 
 def train(model, samples, labels, epochs=1, save=False):
     global checkpoint_path
-    if model_type == 'dual':
-        checkpoint_path = checkpoint_path_dual
+    if model_type == 'mean':
+        checkpoint_path = checkpoint_path_mean
     elif model_type == 'deep':
         checkpoint_path = checkpoint_path_deep
     elif model_type == 'max':
