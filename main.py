@@ -30,13 +30,13 @@ test_images_digits = tf.keras.utils.normalize(test_images_digits, axis=1)
 test_images_letters = tf.keras.utils.normalize(test_images_letters, axis=1)
 
 # create neural network model
-model = models.dual(load=True)
+model = models.deep(load=True)
 
 # train model
 models.train(model,
              np.concatenate((train_images_digits, train_images_letters)),
              np.concatenate((train_labels_digits, train_labels_letters)),
-             epochs=20,
+             epochs=5,
              save=True)
 
 # testing
