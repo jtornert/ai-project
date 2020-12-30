@@ -4,8 +4,10 @@ def label(number):
     """
     if number < 10:
         return number
+    elif number < 36:
+        return chr(number + 55)
 
-    return chr(number + 87)
+    return chr(number + 61)
 
 
 def invlabel(char):

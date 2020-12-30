@@ -14,7 +14,7 @@ def dual(load=False):
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
-    model.add(tf.keras.layers.Dense(units=36, activation=tf.nn.softmax))
+    model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy',
@@ -31,7 +31,7 @@ def dual(load=False):
 
 def max(load=False):
     """
-    A single network that deals with both digits and letters.
+    A network with as many nodes in the hidden layer as the input layer.
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
@@ -46,14 +46,14 @@ def max(load=False):
     model_type = 'max'
 
     if load == True:
-        model.load_weights(checkpoint_path_dual)
+        model.load_weights(checkpoint_path_max)
 
     return model
 
 
 def deep(load=False):
     """
-    A single network that deals with both digits and letters.
+    A deep learning network with three hidden layers.
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
@@ -70,7 +70,7 @@ def deep(load=False):
     model_type = 'deep'
 
     if load == True:
-        model.load_weights(checkpoint_path_dual)
+        model.load_weights(checkpoint_path_deep)
 
     return model
 
