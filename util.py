@@ -20,7 +20,7 @@ def invlabel(char):
     elif number <= ord('Z'):
         number = number - ord('A') + 10
     else:
-        number = number - ord('a') + 10
+        number = number - ord('a') + 36
 
     return number
 
