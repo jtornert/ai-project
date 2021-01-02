@@ -4,8 +4,6 @@ checkpoint_path_mean = 'training_mean/cp.ckpt'
 checkpoint_path_deep = 'training_deep/cp.ckpt'
 checkpoint_path_max = 'training_max/cp.ckpt'
 
-model_type = 'None'
-
 
 def mean(load=False):
     """
@@ -19,9 +17,6 @@ def mean(load=False):
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
-
-    global model_type
-    model_type = 'mean'
 
     if load == True:
         model.load_weights(checkpoint_path_mean)
@@ -41,9 +36,6 @@ def max(load=False):
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
-
-    global model_type
-    model_type = 'max'
 
     if load == True:
         model.load_weights(checkpoint_path_max)
@@ -66,25 +58,13 @@ def deep(load=False):
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
 
-    global model_type
-    model_type = 'deep'
-
     if load == True:
         model.load_weights(checkpoint_path_deep)
 
     return model
 
 
-def train(model, samples, labels, epochs=1, save=False):
-    global checkpoint_path
-    if model_type == 'mean':
-        checkpoint_path = checkpoint_path_mean
-    elif model_type == 'deep':
-        checkpoint_path = checkpoint_path_deep
-    elif model_type == 'max':
-        checkpoint_path = checkpoint_path_max
-    else:
-        raise ValueError('Unknown type.')
+def train(model, samples, labels, epochs=1, save=False, cppath=None):
     model.fit(samples, labels, epochs=epochs, callbacks=(
         None if save == False else [tf.keras.callbacks.ModelCheckpoint(
-            filepath=checkpoint_path, save_weights_only=True, verbose=1)]))
+            filepath=cppath, save_weights_only=True, verbose=1)]))
