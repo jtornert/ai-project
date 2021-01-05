@@ -14,7 +14,7 @@ def mean(load=False):
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
     model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
-    model.compile(optimizer='adam',
+    model.compile(optimizer='adadelta',
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
 
@@ -33,7 +33,7 @@ def max(load=False):
     model.add(tf.keras.layers.Dense(units=784, activation=tf.nn.relu))
     model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
-    model.compile(optimizer='adam',
+    model.compile(optimizer='adadelta',
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
 
@@ -54,7 +54,7 @@ def deep(load=False):
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
     model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
-    model.compile(optimizer='adam',
+    model.compile(optimizer='adadelta',
                   loss='sparse_categorical_crossentropy',
                   metrics=['accuracy'])
 
