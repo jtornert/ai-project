@@ -9,13 +9,13 @@ model_max = models.max(load=True)
 model_deep = models.deep(load=True)
 
 print('\nTraining model: mean')
-models.train(model_mean, images, labels, epochs=20,
+models.train(model_mean, images, labels, epochs=5,
              save=True, cppath=models.checkpoint_path_mean)
 print('\nTraining model: max')
-models.train(model_max, images, labels, epochs=20,
+models.train(model_max, images, labels, epochs=5,
              save=True, cppath=models.checkpoint_path_max)
 print('\nTraining model: deep')
-models.train(model_deep, images, labels, epochs=20,
+models.train(model_deep, images, labels, epochs=5,
              save=True, cppath=models.checkpoint_path_deep)
 
 # print('\nTesting model: mean')
