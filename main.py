@@ -8,7 +8,7 @@ images, labels = emnist.extract_training_samples('byclass')
 
 images = tf.keras.utils.normalize(images, axis=1)
 
-load = False
+load = True
 save = True
 epochs = 5
 

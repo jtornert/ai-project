@@ -5,8 +5,7 @@ checkpoint_path_deep = 'training_deep/cp.ckpt'
 checkpoint_path_max = 'training_max/cp.ckpt'
 
 optimizer = 'adam'
-loss = tf.keras.losses.sparse_categorical_crossentropy
-# tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 metrics = ['accuracy']
 
 dropout = 0.2
