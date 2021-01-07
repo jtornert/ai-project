@@ -4,6 +4,13 @@ checkpoint_path_mean = 'training_mean/cp.ckpt'
 checkpoint_path_deep = 'training_deep/cp.ckpt'
 checkpoint_path_max = 'training_max/cp.ckpt'
 
+optimizer = 'adam'
+loss = tf.keras.losses.sparse_categorical_crossentropy
+# tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+metrics = ['accuracy']
+
+dropout = 0.2
+
 
 def mean(load=False):
     """
@@ -11,12 +18,14 @@ def mean(load=False):
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
-    model.compile(optimizer='adadelta',
-                  loss='sparse_categorical_crossentropy',
-                  metrics=['accuracy'])
+    model.compile(optimizer=optimizer,
+                  loss=loss,
+                  metrics=metrics)
 
     if load == True:
         model.load_weights(checkpoint_path_mean)
@@ -30,12 +39,14 @@ def max(load=False):
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=784, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
-    model.compile(optimizer='adadelta',
-                  loss='sparse_categorical_crossentropy',
-                  metrics=['accuracy'])
+    model.compile(optimizer=optimizer,
+                  loss=loss,
+                  metrics=metrics)
 
     if load == True:
         model.load_weights(checkpoint_path_max)
@@ -49,14 +60,18 @@ def deep(load=False):
     """
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=410, activation=tf.nn.relu))
+    model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(units=62, activation=tf.nn.softmax))
 
-    model.compile(optimizer='adadelta',
-                  loss='sparse_categorical_crossentropy',
-                  metrics=['accuracy'])
+    model.compile(optimizer=optimizer,
+                  loss=loss,
+                  metrics=metrics)
 
     if load == True:
         model.load_weights(checkpoint_path_deep)
