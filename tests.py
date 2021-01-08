@@ -1,3 +1,4 @@
+import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import emnist
@@ -68,7 +69,7 @@ def nist(model):
             img = img[28:100, 28:100]
             img = cv.resize(img, (28, 28), interpolation=cv.INTER_LANCZOS4)
             img = np.invert([img])
-            # img = tf.keras.utils.normalize(np.array(img))
+            img = tf.keras.utils.normalize(np.array(img))
             prediction = model.predict(img)
             util.printPrediction(util.invlabel(NIST_labels[i][symbol]),
                                  np.argmax(prediction))
