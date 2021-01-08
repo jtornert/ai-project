@@ -72,6 +72,6 @@ def nist(model):
             prediction = model.predict(img)
             util.printPrediction(util.invlabel(NIST_labels[i][symbol]),
                                  np.argmax(prediction))
-            plt.imshow(img[0], cmap='gray_r')
-            plt.show()
+            # plt.imshow(img[0], cmap='gray_r')
+            # plt.show()
         i = i + 1
