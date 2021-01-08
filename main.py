@@ -9,7 +9,7 @@ images = tf.keras.utils.normalize(images, axis=1)
 
 load = False
 save = True
-epochs = 5
+epochs = 20
 
 model_mean = models.mean(load=load)
 model_max = models.max(load=load)
