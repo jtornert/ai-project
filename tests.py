@@ -85,9 +85,9 @@ def nist(model):
             prediction = model.predict(img)
             util.printPrediction(util.invlabel(NIST_labels[i][symbol]),
                                  np.argmax(prediction))
-            if util.label(util.invlabel(NIST_labels[i][symbol])) == util.label(np.argmax(prediction)):
-                if show_all == False:
-                    continue
-            plt.imshow(img[0], cmap='gray_r')
-            plt.show()
+            # if util.label(util.invlabel(NIST_labels[i][symbol])) == util.label(np.argmax(prediction)):
+            #     if show_all == False:
+            #         continue
+            # plt.imshow(img[0], cmap='gray_r')
+            # plt.show()
         i = i + 1
