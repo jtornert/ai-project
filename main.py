@@ -4,19 +4,23 @@ import tests
 
 images, labels = emnist.extract_training_samples('byclass')
 
-model_mean = models.mean(load=True)
-model_max = models.max(load=True)
-model_deep = models.deep(load=True)
+load = False
+save = True
+epochs = 5
+
+model_mean = models.mean(load=load)
+model_max = models.max(load=load)
+model_deep = models.deep(load=load)
 
 print('\nTraining model: mean')
-models.train(model_mean, images, labels, epochs=5,
-             save=True, cppath=models.checkpoint_path_mean)
+models.train(model_mean, images, labels, epochs=epochs,
+             save=save, cppath=models.checkpoint_path_mean)
 print('\nTraining model: max')
-models.train(model_max, images, labels, epochs=5,
-             save=True, cppath=models.checkpoint_path_max)
+models.train(model_max, images, labels, epochs=epochs,
+             save=save, cppath=models.checkpoint_path_max)
 print('\nTraining model: deep')
-models.train(model_deep, images, labels, epochs=5,
-             save=True, cppath=models.checkpoint_path_deep)
+models.train(model_deep, images, labels, epochs=epochs,
+             save=save, cppath=models.checkpoint_path_deep)
 
 # print('\nTesting model: mean')
 # tests.rand(model_mean, iter=5)
