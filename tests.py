@@ -11,25 +11,33 @@ test_images, test_labels = emnist.extract_test_samples('byclass')
 
 test_images = tf.keras.utils.normalize(test_images, axis=1)
 
+show_all = False
 
-def rand(model, iter=None):
-    iterations = 0
-    if iter == None:
+
+def rand(model, iterations=None):
+    iter = 0
+
+    if iterations == None:
         print('\nRandom test, enter a value between 1 and 20:', end=" ")
-        iterations = int(input())
+        iter = int(input())
     else:
         print('\nRandom test:')
-        iterations = iter
-    if iterations < 1:
-        iterations = 1
-    elif iterations > 20:
-        iterations = 20
+        iter = iterations
+
+    if iter < 1:
+        iter = 1
+    elif iter > 20:
+        iter = 20
+
     indices = [random.randint(0, 116323 - 1) for i in range(iterations)]
 
     for index in indices:
         img = np.array(test_images[index], dtype='float').reshape((28, 28))
         prediction = model.predict(np.array([img]))
         util.printPrediction(test_labels[index], np.argmax(prediction))
+        if util.label(test_labels[index]) == util.label(np.argmax(prediction)):
+            if show_all == False:
+                continue
         plt.imshow(img, cmap='gray_r')
         plt.show()
 
@@ -43,6 +51,9 @@ def paint(model):
         prediction = model.predict(img)
         util.printPrediction(
             ord(filepath[6:7]) - ord('0'), np.argmax(prediction))
+        if util.label(ord(filepath[6:7]) - ord('0')) == util.label(np.argmax(prediction)):
+            if show_all == False:
+                continue
         plt.imshow(img[0], cmap='gray_r')
         plt.show()
 
@@ -75,6 +86,9 @@ def nist(model):
             prediction = model.predict(img)
             util.printPrediction(util.invlabel(NIST_labels[i][symbol]),
                                  np.argmax(prediction))
-            # plt.imshow(img[0], cmap='gray_r')
-            # plt.show()
+            if util.label(util.invlabel(NIST_labels[i][symbol])) == util.label(np.argmax(prediction)):
+                if show_all == False:
+                    continue
+            plt.imshow(img[0], cmap='gray_r')
+            plt.show()
         i = i + 1
