@@ -9,6 +9,8 @@ import cv2 as cv
 
 test_images, test_labels = emnist.extract_test_samples('byclass')
 
+test_images = tf.keras.utils.normalize(test_images, axis=1)
+
 
 def rand(model, iter=None):
     iterations = 0
