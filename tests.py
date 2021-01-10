@@ -7,9 +7,14 @@ import glob
 import cv2 as cv
 import tensorflow as tf
 
-test_images, test_labels = emnist.extract_test_samples('byclass')
+test_images_all, test_labels_all = emnist.extract_test_samples('byclass')
+test_images_digits, test_labels_digits = emnist.extract_test_samples('digits')
+test_images_letters, test_labels_letters = emnist.extract_test_samples(
+    'letters')
 
-test_images = tf.keras.utils.normalize(test_images, axis=1)
+test_images_all = tf.keras.utils.normalize(test_images_all, axis=1)
+test_images_digits = tf.keras.utils.normalize(test_images_digits, axis=1)
+test_images_letters = tf.keras.utils.normalize(test_images_letters, axis=1)
 
 show_all = False
 
@@ -29,10 +34,10 @@ def rand(model, iter=None):
     indices = [random.randint(0, 116323 - 1) for i in range(iterations)]
 
     for index in indices:
-        img = np.array(test_images[index], dtype='float').reshape((28, 28))
+        img = np.array(test_images_all[index], dtype='float').reshape((28, 28))
         prediction = model.predict(np.array([img]))
-        util.printPrediction(test_labels[index], np.argmax(prediction))
-        if util.label(test_labels[index]) == util.label(np.argmax(prediction)):
+        util.printPrediction(test_labels_all[index], np.argmax(prediction))
+        if util.label(test_labels_all[index]) == util.label(np.argmax(prediction)):
             if show_all == False:
                 continue
         plt.imshow(img, cmap='gray_r')
