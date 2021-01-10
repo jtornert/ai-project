@@ -16,7 +16,7 @@ test_images_all = tf.keras.utils.normalize(test_images_all, axis=1)
 test_images_digits = tf.keras.utils.normalize(test_images_digits, axis=1)
 test_images_letters = tf.keras.utils.normalize(test_images_letters, axis=1)
 
-show_all = False
+show_all = True
 
 
 def rand(model, iter=None):
@@ -64,7 +64,6 @@ def paint(model):
     print('\nCustom images:')
 
     for filepath in glob.iglob(r'./test_images/*.png'):
-        print(ord(filepath[14:15]))
         img = cv.imread(filepath)[:, :, 0]
         img = np.invert([img])
         prediction = model.predict(img)
