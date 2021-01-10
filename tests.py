@@ -44,7 +44,7 @@ def rand(model, iter=None):
         plt.show()
 
 
-def paint(model):
+def test(model):
     print('\nTest images:')
 
     for filepath in glob.iglob(r'./img/*.png'):
@@ -54,6 +54,23 @@ def paint(model):
         util.printPrediction(
             ord(filepath[6:7]) - ord('0'), np.argmax(prediction))
         if util.label(ord(filepath[6:7]) - ord('0')) == util.label(np.argmax(prediction)):
+            if show_all == False:
+                continue
+        plt.imshow(img[0], cmap='gray_r')
+        plt.show()
+
+
+def paint(model):
+    print('\nCustom images:')
+
+    for filepath in glob.iglob(r'./test_images/*.png'):
+        print(ord(filepath[14:15]))
+        img = cv.imread(filepath)[:, :, 0]
+        img = np.invert([img])
+        prediction = model.predict(img)
+        util.printPrediction(
+            util.invlabel(filepath[14:15]), np.argmax(prediction))
+        if util.label(util.invlabel(filepath[14:15])) == util.label(np.argmax(prediction)):
             if show_all == False:
                 continue
         plt.imshow(img[0], cmap='gray_r')
@@ -81,16 +98,16 @@ def nist(model):
             images = glob.glob(testfolder + r'/*')
             file = images[random.randint(0, len(images) - 1)]
             img = cv.imread(file)[:, :, 0]
-            img = img[28:100, 28:100]
+            # img = img[28:100, 28:100]
             img = cv.resize(img, (28, 28), interpolation=cv.INTER_LANCZOS4)
             img = np.invert([img])
-            # img = tf.keras.utils.normalize(np.array(img))
+            img = tf.keras.utils.normalize(np.array(img))
             prediction = model.predict(img)
             util.printPrediction(util.invlabel(NIST_labels[i][symbol]),
                                  np.argmax(prediction))
-            # if util.label(util.invlabel(NIST_labels[i][symbol])) == util.label(np.argmax(prediction)):
-            #     if show_all == False:
-            #         continue
-            # plt.imshow(img[0], cmap='gray_r')
-            # plt.show()
+            if util.label(util.invlabel(NIST_labels[i][symbol])) == util.label(np.argmax(prediction)):
+                if show_all == False:
+                    continue
+            plt.imshow(img[0], cmap='gray_r')
+            plt.show()
         i = i + 1
