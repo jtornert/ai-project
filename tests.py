@@ -19,19 +19,19 @@ test_images_letters = tf.keras.utils.normalize(test_images_letters, axis=1)
 show_all = True
 
 
-def rand(model, iter=None):
-    iterations = 0
-    if iter == None:
+def rand(model, iterations=None):
+    iter = 0
+    if iterations == None:
         print('\nRandom test, enter a value between 1 and 20:', end=" ")
-        iterations = int(input())
+        iter = int(input())
     else:
         print('\nRandom test:')
-        iterations = iter
-    if iterations < 1:
-        iterations = 1
-    elif iterations > 20:
-        iterations = 20
-    indices = [random.randint(0, 116323 - 1) for i in range(iterations)]
+        iter = iterations
+    if iter < 1:
+        iter = 1
+    elif iter > 20:
+        iter = 20
+    indices = [random.randint(0, 116323 - 1) for i in range(iter)]
 
     for index in indices:
         img = np.array(test_images_all[index], dtype='float').reshape((28, 28))
@@ -70,6 +70,22 @@ def paint(model):
         util.printPrediction(
             util.invlabel(filepath[14:15]), np.argmax(prediction))
         if util.label(util.invlabel(filepath[14:15])) == util.label(np.argmax(prediction)):
+            if show_all == False:
+                continue
+        plt.imshow(img[0], cmap='gray_r')
+        plt.show()
+
+
+def demo(model):
+    print('\nDemo images:')
+
+    for filepath in glob.iglob(r'./demo/*.png'):
+        img = cv.imread(filepath)[:, :, 0]
+        img = np.invert([img])
+        prediction = model.predict(img)
+        util.printPrediction(
+            util.invlabel(filepath[7:8]), np.argmax(prediction))
+        if util.label(util.invlabel(filepath[7:8])) == util.label(np.argmax(prediction)):
             if show_all == False:
                 continue
         plt.imshow(img[0], cmap='gray_r')

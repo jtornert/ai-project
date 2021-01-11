@@ -26,17 +26,17 @@ model_deep = models.deep(load=load)
 #              save=save, cppath=models.checkpoint_path_deep)
 
 print('\nTesting model: mean')
-tests.rand(model_mean, iter=5)
+tests.rand(model_mean, iterations=5)
 tests.paint(model_mean)
 tests.nist(model_mean)
 
 print('\nTesting model: max')
-tests.rand(model_max, iter=5)
+tests.rand(model_max, iterations=5)
 tests.paint(model_max)
 tests.nist(model_max)
 
 print('\nTesting model: deep')
-tests.rand(model_deep, iter=5)
+tests.rand(model_deep, iterations=5)
 tests.paint(model_deep)
 tests.nist(model_deep)
 
